@@ -39,6 +39,7 @@ var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghin
 		});
 	});
 
+	// Function to show the Gifs using AJAX for retrieval
 	function showGifs () {
 		var car = $(this).attr("data-name");
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + car + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -48,24 +49,28 @@ var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghin
           method: "GET"
         }).done(function(response) {
 
-          console.log(response);
-
+		// Clear the gifs and start the selection with a for loop
           $(".gifs-view").empty();
           for (var g = 0; g < response.data.length; g++) {
-          	var gifDiv = $("<div>");
+			
+			// Create the Gif div and add the rating with the selection (including changing the rating to upper case) from the for loop
+			var gifDiv = $("<div>");
           	gifDiv.addClass("gifDiv");
           	gifDiv.html("<p>Rating: " + response.data[g].rating.toUpperCase() + "</p>");
 
+			// Create the variable to hold the fixed image before activating the Gif
           	var gifImage = $("<img src='" + response.data[g].images.fixed_height_still.url + "'>");
           	gifImage.addClass("gif");
 
+			// Create the Image div and add attributes tying to the selection from the for loop
           	var imageDiv = $("<div>");
           	imageDiv.addClass("play");
 			imageDiv.attr("data-still", response.data[g].images.fixed_height_still.url);
           	imageDiv.attr("data-animate",response.data[g].images.fixed_height.url)
 			imageDiv.attr("data-name", car);
 			imageDiv.attr("data-state", "still");
-          	
+			  
+			// Display the images and divs below one another when selecting a button
           	$(imageDiv).append(gifImage);
           	$(gifDiv).append(imageDiv);
           	$(".gifs-view").append(gifDiv);
@@ -75,6 +80,7 @@ var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghin
     	});
 	};
 
+	// Function to play the Gifs when clicking on them
 	function playGif () {
 
 		if ($(this).attr("data-state") == "still") {
@@ -91,5 +97,5 @@ var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghin
 	$(document).on("click", ".car", showGifs);
 	$(document).on("click", ".play", playGif);
 
-//Running Code
+//Execute the code
 renderButtons();
