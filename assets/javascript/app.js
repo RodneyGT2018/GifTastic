@@ -1,8 +1,7 @@
-//Institute Variables
 var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghini", "toyota", "fiat", "corvette", "bmw"];
 
-//Functions
 
+	// Function to load buttons above with text, class and attribute and then display
 	function renderButtons () {
 		$("#buttons-view").empty();
 		for (var c = 0; c < topics.length; c++) {
@@ -15,6 +14,7 @@ var topics = ["ferrari", "porsche", "tesla", "bentley", "mercedes", "lambourghin
 		}
 	}
 
+	// Function to add a car using AJAX
 	$("#add-car").on("click", function (event) {
 		event.preventDefault();
 		var car = $("#car-input").val().toLowerCase().trim();
